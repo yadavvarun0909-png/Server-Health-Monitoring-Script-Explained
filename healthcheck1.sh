@@ -40,6 +40,12 @@ fi
 
 
 # improtant points.
-chmod +x server_health.sh
-./server_health.sh
+# chmod +x server_health.sh
+# ./server_health.sh
+
+# This is a shell script that continuously monitors server health by checking:
+# CPU usage
+# Memory usage
+# Disk usage
+# If any usage crosses a defined threshold, it sends an alert.
 
