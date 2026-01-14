@@ -38,3 +38,8 @@ if [ "$DISK_USAGE" -gt "$DISK_THRESHOLD" ]; then
   echo "⚠️ ALERT: Disk usage is high!"
 fi
 
+
+# improtant points.
+chmod +x server_health.sh
+./server_health.sh
+
