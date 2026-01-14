@@ -1,9 +1,5 @@
-#!/bin/bash
 
-# -----------------------------------------
-# Project: Automated Log Cleanup Script
-# Purpose: Delete old log files automatically
-# -----------------------------------------
+#!/bin/bash
 
 LOG_DIR="/var/log/myapp"
 DAYS=7
@@ -11,11 +7,14 @@ DAYS=7
 echo "Starting log cleanup..."
 echo "Deleting logs older than $DAYS days from $LOG_DIR"
 
-find $LOG_DIR -type f -name "*.log" -mtime +$DAYS -exec rm -f {} \;
+# Check if directory exists
+if [ ! -d "$LOG_DIR" ]; then
+    echo "Directory $LOG_DIR does not exist."
+    exit 1
+fi
+
+# Find and delete old log files
+find "$LOG_DIR" -type f -name "*.log" -mtime +"$DAYS" -delete
 
 echo "Log cleanup completed successfully."
 
-
-LOG_DIR="/var/log/myapp"--> This is the folder where log files are stored
-DAYS=7--> Delete logs older than 7 days
-find $LOG_DIR -type f -name "*.log" -mtime +$DAYS--> find(search files), $LOG_DIR(where to search), -type f(only files), -name "*.log"(only log files), -mtime +$DAYS(older than X days)
