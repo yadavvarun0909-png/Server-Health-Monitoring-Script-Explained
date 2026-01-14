@@ -1,0 +1,112 @@
+🔹 What this project does (Simple words)
+Creates Linux users
+Creates groups
+Adds users to groups
+Sets file & directory permissions
+Assigns ownership
+👉 Used daily by DevOps / SysAdmins to manage access securely.
+
+
+#!/bin/bash
+
+# -----------------------------
+# User & Permission Management Script
+# -----------------------------
+# This script:
+# 1. Creates a group
+# 2. Creates users
+# 3. Adds users to the group
+# 4. Sets directory permissions
+
+# Run this script as ROOT user
+
+# --------- Variables ---------
+GROUP_NAME=devteam
+USERS=("user1" "user2" "user3")
+DIR_PATH=/opt/dev_project
+
+# --------- Create Group ---------
+if ! getent group $GROUP_NAME > /dev/null; then
+    groupadd $GROUP_NAME
+    echo "Group $GROUP_NAME created"
+else
+    echo "Group $GROUP_NAME already exists"
+fi
+
+# --------- Create Users and Assign Group ---------
+for USER in "${USERS[@]}"
+do
+    if ! id $USER &>/dev/null; then
+        useradd -m -g $GROUP_NAME $USER
+        echo "User $USER created and added to group $GROUP_NAME"
+    else
+        echo "User $USER already exists"
+    fi
+done
+
+# --------- Create Directory ---------
+mkdir -p $DIR_PATH
+
+# --------- Set Ownership ---------
+chown -R :$GROUP_NAME $DIR_PATH
+
+# --------- Set Permissions ---------
+chmod -R 770 $DIR_PATH
+
+echo "User and permission setup completed successfully"
+
+----------------------------------------------------------------------------------------------------------------------------------
+1) Variables Section: GROUP_NAME=devteam
+USERS=("user1" "user2" "user3")
+DIR_PATH=/opt/dev_project
+✔ List of users
+✔ Directory to secure
+
+2) groupadd devteam: 👉 Creates a Linux group
+Used to manage permissions centrally
+
+3) Create Users: useradd -m -g devteam user1
+| Option | Meaning               |
+| ------ | --------------------- |
+| `-m`   | Create home directory |
+| `-g`   | Primary group         |
+
+
+4) Loop Explanation: for USER in "${USERS[@]}"
+👉 Loops through multiple users
+✔ Automation
+✔ No repeated commands
+
+
+5) Create Project Directory: mkdir -p /opt/dev_project
+Application folder
+Shared workspace
+
+
+6) Set Ownership:
+chown -R :devteam /opt/dev_project
+✔ Group owns the directory
+✔ All users in group can access
+
+7) Set Permissions:
+| Permission | Meaning            |
+| ---------- | ------------------ |
+| 7          | Owner: full access |
+| 7          | Group: full access |
+| 0          | Others: no access  |
+
+
+8) chmod +x user_management.sh
+9) sudo ./user_management.sh:User creation requires root access
+
+
+
+
+
+
+
+
+
+
+
+
