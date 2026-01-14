@@ -1,0 +1,39 @@
+What is this project?
+This script monitors Docker containers and:
+Checks which containers are running
+Detects stopped containers
+Automatically restarts them
+👉 This ensures high availability of containerized apps
+
+
+
+#!/bin/bash
+
+# -----------------------------
+# Docker Container Monitoring Script
+# -----------------------------
+# This script checks Docker containers
+# and restarts stopped containers automatically
+
+# --------- Check Docker Service ---------
+if ! systemctl is-active --quiet docker; then
+    echo "❌ Docker service is not running"
+    exit 1
+fi
+
+# --------- Get All Containers ---------
+CONTAINERS=$(docker ps -a --format "{{.Names}} {{.State}}")
+
+# --------- Monitor Containers ---------
+for container in $CONTAINERS
+do
+    NAME=$(echo $container | awk '{print $1}')
+    STATE=$(echo $container | awk '{print $2}')
+
+    if [ "$STATE" != "running" ]; then
+        echo "⚠️ Container $NAME is $STATE. Restarting..."
+        docker restart "$NAME"
+    else
+        echo "✅ Container $NAME is running"
+    fi
+done
