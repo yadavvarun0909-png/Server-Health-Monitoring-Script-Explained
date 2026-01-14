@@ -43,7 +43,29 @@ fi
 # chmod +x server_health.sh
 # ./server_health.sh
 
-# This is a shell script that continuously monitors server health by checking:
+# This is a shell script that continuously monitors server health by checking:1)CPU usage, 2) Memory Usage, 3)Disk Usage
+
+#---> wsl
+cd
+ssh -i ~/varunya12.pem ubuntu@13.126.231.108
+mkdir shellscripting1
+cd shellscripting1
+vim healthcheck1.sh
+chmod +x healthcheck1.sh
+./healthcheck1.sh
+git init
+git status
+git add healthcheck1.sh
+git status
+git commit -m "this is a health server code"
+git push
+git branch -M main
+git remote add origin https://github.com/yadavvarun0909-png/server-health-montoring-script-explained.git
+git push -u origin main
+
+
+
+
 # CPU usage
 # Memory usage
 # Disk usage
