@@ -1,0 +1,26 @@
+👉 Shell scripting means writing commands in a file so the computer can do work automatically.
+
+Shell = Command line (Terminal)
+Script = A list of commands written in a file
+
+Imagine you are a DevOps engineer.
+Every day you:
+Check CPU usage
+Check memory
+Check disk space
+Restart services
+Take backups
+
+
+🧩 Example 1: Simple Shell Script
+#!/bin/bash
+echo "My name is Varun"
+date
+uptime
+
+📤 Output:My name is Varun
+Mon Jan 14 11:30:00 IST 2026
+11:30 up 2 hours, 1 user
+
+
+
