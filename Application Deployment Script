@@ -1,0 +1,58 @@
+This script automates application deployment on a Linux server.
+Instead of doing this manually:
+Pull code
+Build app
+Restart service
+👉 One script does everything safely.
+
+
+
+#!/bin/bash
+
+# -----------------------------
+# Application Deployment Script
+# -----------------------------
+# This script:
+# 1. Pulls latest code
+# 2. Builds the application
+# 3. Restarts the service
+
+# --------- Variables ---------
+APP_DIR="/home/ubuntu/myapp"
+BRANCH="main"
+SERVICE_NAME="myapp"
+
+# --------- Go to App Directory ---------
+cd "$APP_DIR" || {
+  echo "❌ Application directory not found"
+  exit 1
+}
+
+# --------- Pull Latest Code ---------
+echo "Pulling latest code..."
+if git pull origin "$BRANCH"; then
+    echo "✅ Code updated successfully"
+else
+    echo "❌ Git pull failed"
+    exit 1
+fi
+
+# --------- Build Application ---------
+echo "Building application..."
+if ./build.sh; then
+    echo "✅ Build successful"
+else
+    echo "❌ Build failed"
+    exit 1
+fi
+
+# --------- Restart Application Service ---------
+echo "Restarting service..."
+if systemctl restart "$SERVICE_NAME"; then
+    echo "✅ Service restarted successfully"
+else
+    echo "❌ Service restart failed"
+    exit 1
+fi
+
+echo "🚀 Deployment completed successfully"
