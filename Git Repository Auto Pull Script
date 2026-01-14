@@ -1,0 +1,50 @@
+
+
+git pull origin main
+
+This script automatically pulls the latest code from a GitHub repository.
+
+Why this is used in real companies:--
+In real DevOps workflows:
+Code changes are pushed to GitHub
+Servers need the latest code
+Pulling manually is error-prone
+This script is used in:
+Deployment pipeline
+CI/CD servers
+Cron jobs
+Webhook trigger.
+
+
+#!/bin/bash
+
+# -----------------------------
+# Git Repository Auto Pull Script
+# -----------------------------
+# This script pulls latest code from GitHub
+# Used in deployment automation
+
+# --------- Variables ---------
+REPO_DIR="/home/ubuntu/myapp"
+BRANCH="main"
+
+# --------- Go to Repo Directory ---------
+cd "$REPO_DIR" || {
+  echo "❌ Directory not found: $REPO_DIR"
+  exit 1
+}
+
+# --------- Check Git Repository ---------
+if [ -d ".git" ]; then
+    echo "Git repository found"
+else
+    echo "❌ Not a Git repository"
+    exit 1
+fi
+
+# --------- Pull Latest Code ---------
+if git pull origin "$BRANCH"; then
+    echo "✅ Code pulled successfully"
+else
+    echo "❌ Git pull failed"
+fi
