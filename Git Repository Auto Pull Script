@@ -48,3 +48,37 @@ if git pull origin "$BRANCH"; then
 else
     echo "❌ Git pull failed"
 fi
+----------------------EXAMPLE-1------
+#!/bin/bash
+
+# -----------------------------
+# Git Repository Auto Pull Script
+# Project: python-new-addition
+# Used in deployment automation
+# -----------------------------
+
+# --------- Variables ---------
+REPO_DIR="/home/varun/python-new-addition"
+BRANCH="main"
+
+# --------- Go to Repo Directory ---------
+cd "$REPO_DIR" || {
+  echo "❌ Directory not found: $REPO_DIR"
+  exit 1
+}
+
+# --------- Check Git Repository ---------
+if [ -d ".git" ]; then
+    echo "✅ Git repository found"
+else
+    echo "❌ Not a Git repository"
+    exit 1
+fi
+
+# --------- Pull Latest Code ---------
+if git pull origin "$BRANCH"; then
+    echo "✅ Code pulled successfully from $BRANCH branch"
+else
+    echo "❌ Git pull failed"
+    exit 1
+fi
