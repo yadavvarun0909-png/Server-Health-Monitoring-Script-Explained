@@ -48,6 +48,12 @@ if git pull origin "$BRANCH"; then
 else
     echo "❌ Git pull failed"
 fi
+
+
+
+cd ~
+git clone https://github.com/yadavvarun0909-png/python-new-addition.git
+
 ----------------------EXAMPLE-1------
 #!/bin/bash
 
